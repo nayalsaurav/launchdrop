@@ -2,10 +2,9 @@ import { z } from "zod";
 
 export const DeployInput = z.object({
   repoUrl: z.string().url(),
-  buildCommand: z.string().default("bun run build"),
-  outputDir: z.string().default("dist"),
   env: z.record(z.string(), z.string()).default({}),
   projectId: z.string(),
+  domain: z.string().nullable().optional(),
 });
 
 export type DeployInputType = z.infer<typeof DeployInput>;
