@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Friendly Dev 404</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "warm-bg": "#FDF8F3",
+              "warm-text": "#5D4E4E",
+              "accent-warm": "#E8A87C",
+              "soft-teal": "#C38D9E",
+            },
+            fontFamily: {
+              display: ["Quicksand", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      :root {
+        --warm-brown: #7a6363;
+      }
+      .illustration-float {
+        animation: floating 3s ease-in-out infinite;
+      }
+      @keyframes floating {
+        0% {
+          transform: translate(0, 0px);
+        }
+        50% {
+          transform: translate(0, -15px);
+        }
+        100% {
+          transform: translate(0, -0px);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-warm-bg font-display text-warm-text h-screen w-full flex flex-col items-center justify-between overflow-hidden antialiased"
+  >
+    <div class="flex-grow"></div>
+    <main
+      class="w-full max-w-2xl px-6 flex flex-col items-center justify-center text-center"
+    >
+      <div class="relative mb-8 illustration-float">
+        <div class="relative">
+          <span
+            class="material-symbols-outlined text-[120px] text-soft-teal opacity-80"
+          >
+            smart_toy
+          </span>
+          <span
+            class="material-symbols-outlined absolute -top-4 -right-4 text-4xl text-accent-warm"
+          >
+            question_mark
+          </span>
+        </div>
+        <div
+          class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-accent-warm/10 rounded-full blur-2xl"
+        ></div>
+      </div>
+      <h1 class="text-6xl font-bold tracking-tight text-warm-text/30 mb-2">
+        404
+      </h1>
+      <h2 class="text-2xl font-bold mb-4 px-4">
+        Oops! Looks like this page took a wrong turn.
+      </h2>
+
+      <div class="flex items-center gap-3 opacity-40">
+        <span class="material-symbols-outlined text-sm">terminal</span>
+        <div class="w-12 h-[2px] bg-warm-text/20 rounded-full"></div>
+        <span class="material-symbols-outlined text-sm">link_off</span>
+        <div class="w-12 h-[2px] bg-warm-text/20 rounded-full"></div>
+        <span class="material-symbols-outlined text-sm">cloud_off</span>
+      </div>
+    </main>
+    <div class="flex-grow"></div>
+    <footer class="w-full py-10 text-center">
+      <a
+        href="https://nayalsaurav.in?ref=launchdrop"
+        class="text-sm font-medium text-warm-text/40 tracking-wide hover:text-warm-text/60 transition-colors cursor-default font-body"
+      >
+        built by nayalsaurav.in
+      </a>
+    </footer>
+  </body>
+</html>

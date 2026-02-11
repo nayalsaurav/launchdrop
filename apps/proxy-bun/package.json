@@ -1,0 +1,18 @@
+{
+  "name": "proxy",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/config": "*",
+    "@repo/database": "*",
+    "@repo/queue": "*",
+    "@repo/types": "*",
+    "@repo/utils": "*",
+    "@repo/storage": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "type": "module"
+}
