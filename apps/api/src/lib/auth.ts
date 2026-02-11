@@ -4,6 +4,7 @@ import { prisma } from "@repo/database";
 import { env } from "@repo/config";
 import { fromNodeHeaders } from "better-auth/node";
 import { type Request } from "express";
+import { connection } from "@repo/queue";
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql",
@@ -19,6 +20,21 @@ export const auth = betterAuth({
     },
     baseURL: env.BETTER_AUTH_URL || "http://localhost:3005",
     trustedOrigins: ["http://localhost:3000"],
+    rateLimit:{
+        enabled: true,
+        storage:"secondary-storage",
+    },
+    secondaryStorage:{get: async (key) => {
+			return await connection.get(key);
+		},
+		set: async (key, value, ttl) => {
+			if (ttl) await connection.set(key, value, 'EX', ttl)
+			else await connection.set(key, value);
+		},
+		delete: async (key) => {
+			await connection.del(key);
+		}
+    }
 });
 
 
