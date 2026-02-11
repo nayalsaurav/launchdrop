@@ -3,7 +3,7 @@ import { readdir } from "node:fs/promises";
 import { upload } from "@repo/storage";
 import { WorkerError } from "../errors";
 
-export async function uploadToR2(deploymentId: string, workspace: string) {
+export async function uploadToR2(domain: string, workspace: string) {
   try {
     const dirPath = path.join(workspace, "dist");
     const entries = await readdir(dirPath, {
@@ -17,12 +17,16 @@ export async function uploadToR2(deploymentId: string, workspace: string) {
       const relativePath = path
         .relative(workspace, absolutePath)
         .replace(/\\/g, "/");
-      const key = `deployments/${deploymentId}/${relativePath}`;
+      const key = `deployments/${domain}/${relativePath}`;
       uploads.push(uploadFile(key, absolutePath));
     }
     await Promise.all(uploads);
-  } catch (error) {
-    throw new WorkerError("Upload failed", "UPLOAD_FAILED");
+  } catch (error: any) {
+    console.error(`[Upload Error] ${error.message}`, error);
+    throw new WorkerError(
+      `Upload failed: ${error.message}`,
+      "UPLOAD_FAILED"
+    );
   }
 }
 
@@ -31,7 +35,8 @@ async function uploadFile(key: string, filePath: string) {
     const file = Bun.file(filePath);
     const body = new Uint8Array(await file.arrayBuffer());
     await upload({ key, type: file.type, body });
-  } catch (error) {
-    throw new WorkerError(`Failed to upload file: ${key}`, "UPLOAD_FAILED");
+  } catch (error: any) {
+    console.error(`[File Upload Error] ${key}: ${error.message}`, error);
+    throw new WorkerError(`Failed to upload file: ${key}. ${error.message}`, "UPLOAD_FAILED");
   }
 }

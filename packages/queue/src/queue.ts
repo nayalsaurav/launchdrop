@@ -4,7 +4,7 @@ import { connection } from "./client";
 export const buildQueue = new Queue("builds", {
   connection,
   defaultJobOptions: {
-    attempts: 3,
+    attempts: 1,
     backoff: {
       type: "exponential",
       delay: 30_000,

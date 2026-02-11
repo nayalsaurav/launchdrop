@@ -63,7 +63,7 @@ export async function buildJob(
       where: { id: deploymentId },
       data: { status: "DEPLOYING" },
     });
-    await uploadToR2(deploymentId, workspace);
+    await uploadToR2(data.domain!, workspace);
 
     console.log(JSON.stringify({ deploymentId, phase: "done" }));
     await prisma.deployment.update({

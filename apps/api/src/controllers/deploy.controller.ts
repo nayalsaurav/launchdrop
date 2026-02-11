@@ -51,8 +51,7 @@ export const createDeploy = async (
     const data = { 
         projectId: project.id,
         repoUrl: project.repoUrl,
-        buildCommand: parsed.data.buildCommand || "npm run build",
-        outputDir: parsed.data.outputDir || "dist",
+        domain: project.domain,
         env: parsed.data.env || {}
     };
     
@@ -110,49 +109,6 @@ export const getAllDeploy = async (
     }
 }
 
-
-export const deleteDeploy = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    try {
-        const { id } = req.params;
-
-        if (!req.user) {
-            return res.status(401).json({ error: "Unauthorized" });
-        }
-
-        if (!id || typeof id !== 'string') {
-             return res.status(400).json({ error: "Deployment ID is required" });
-        }
-
-        const deployment = await prisma.deployment.findUnique({
-            where: { id },
-        });
-
-        if (!deployment) {
-            return res.status(404).json({ error: "Deployment not found" });
-        }
-
-        const project = await prisma.project.findUnique({
-            where: { id: deployment.projectId }
-        });
-
-        if (!project || project.userId !== req.user.id) {
-            return res.status(403).json({ error: "Forbidden" });
-        }
-
-        await prisma.deployment.delete({
-            where: { id }
-        });
-
-        return res.json({ message: "Deployment deleted successfully" });
-
-    } catch (error) {
-        next(error);
-    }
-}
 
 export const getDeployStatus = async (
     req: Request,

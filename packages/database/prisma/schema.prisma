@@ -101,8 +101,9 @@ model Project {
   domain    String? @unique
   createdAt DateTime
   updatedAt DateTime
+  deletedAt DateTime?
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
   deployments Deployment[]
   @@map("project")
 }

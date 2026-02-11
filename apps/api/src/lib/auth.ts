@@ -17,7 +17,8 @@ export const auth = betterAuth({
             clientSecret: env.GITHUB_CLIENT_SECRET,
         },
     },
-    
+    baseURL: env.BETTER_AUTH_URL || "http://localhost:3005",
+    trustedOrigins: ["http://localhost:3000"],
 });
 
 

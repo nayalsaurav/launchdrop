@@ -7,8 +7,9 @@ import { errorMiddleware } from "./middlewares/error.middleware";
 import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
 import cors from "cors";
+import morgan from "morgan";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 const app = express();
 app.use(
   cors({
@@ -17,9 +18,10 @@ app.use(
     credentials: true, 
   })
 );
+app.use(helmet());
+app.use(morgan("dev"));
 app.all('/api/auth/{*any}', toNodeHandler(auth));
 app.use(express.json());
-app.use(helmet());
 app.get("/api/me", async (req, res) => {
  	const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
