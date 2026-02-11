@@ -1,15 +1,18 @@
-# config
+# @repo/config ⚙️
 
-To install dependencies:
+Centralized configuration and environment variable management for the LaunchDrop monorepo.
 
-```bash
-bun install
-```
+## 🚀 Features
 
-To run:
+- **Environment Validation**: Ensures all required environment variables are present and correct.
+- **Unified Config**: Provides a consistent way to access configuration across API, Web, and Workers.
+- **Type-Safe Access**: Prevents runtime errors by validating config at startup.
 
-```bash
-bun run index.ts
-```
+## 🛠️ Tech Stack
 
-This project was created using `bun init` in bun v1.2.20. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- **Runtime**: [TypeScript](https://www.typescriptlang.org/)
+- **Validation**: [Zod](https://zod.dev/)
+
+## 📁 Structure
+
+- `src/`: Environment variable schemas and configuration loaders.

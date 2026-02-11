@@ -1,15 +1,13 @@
-# utils
+# @repo/utils 🧰
 
-To install dependencies:
+A collection of general-purpose utility functions and helpers used throughout the LaunchDrop monorepo.
 
-```bash
-bun install
-```
+## 🚀 Features
 
-To run:
+- **String Helpers**: Common transformations and formatting.
+- **Async Utilities**: Helpers for handling promises and timeouts.
+- **Common Helpers**: Redundant logic extracted to a single place.
 
-```bash
-bun run index.ts
-```
+## 📁 Structure
 
-This project was created using `bun init` in bun v1.2.20. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- `src/`: Modular utility functions exported for monorepo-wide use.

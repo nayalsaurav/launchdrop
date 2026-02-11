@@ -1,15 +1,32 @@
-# types
+# @repo/types 🏷️
 
-To install dependencies:
+Shared TypeScript types and Zod schemas used across the LaunchDrop monorepo to ensure end-to-end type safety and data validation.
 
-```bash
-bun install
+## 🚀 Features
+
+- **Centralized Types**: Common interfaces for Projects, Deployments, and Users.
+- **Zod Validation**: Reusable schemas for API inputs and configuration files.
+- **Consistent Data Shapes**: Ensures that the Dashboard, API, and Worker are always in sync.
+
+## 🛠️ Tech Stack
+
+- **Runtime**: [TypeScript](https://www.typescriptlang.org/)
+- **Validation**: [Zod](https://zod.dev/)
+
+## 🏁 Usage
+
+Import types or schemas directly from the package:
+
+```typescript
+import { DeployInputType, DeployInput } from "@repo/types";
+
+// Use for validation
+const result = DeployInput.safeParse(data);
+
+// Use as a type
+function processDeployment(data: DeployInputType) { ... }
 ```
 
-To run:
+## 📁 Structure
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.20. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- `src/index.ts`: Main entry point exporting all shared types and schemas.

@@ -1,15 +1,26 @@
-# queue
+# @repo/queue 🚥
 
-To install dependencies:
+Shared task queue configuration and manager for LaunchDrop, powered by BullMQ and Redis.
 
-```bash
-bun install
+## 🚀 Features
+
+- **Unified Build Queue**: Single source of truth for build job definitions.
+- **Redis Integration**: Optimized Redis connections for BullMQ.
+- **Job Reliability**: Configured for retries and persistent task management.
+
+## 🛠️ Tech Stack
+
+- **Provider**: [BullMQ](https://docs.bullmq.io/)
+- **Backend**: [Redis](https://redis.io/)
+
+## 🏁 Usage
+
+```typescript
+import { buildQueue } from "@repo/queue";
+
+await buildQueue.add("build", { deploymentId, data });
 ```
 
-To run:
+## 📁 Structure
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.20. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- `src/`: Queue definitions and shared Redis connection logic.
