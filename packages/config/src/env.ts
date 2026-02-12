@@ -24,7 +24,8 @@ const EnvSchema = z.object({
   GITHUB_CLIENT_SECRET: z.string().min(1),
   BETTER_AUTH_SECRET: z.string().min(1),
   BETTER_AUTH_URL: z.string().min(1),
-  
+  FRONTEND_URL: z.url().optional(),
+  NEXT_PUBLIC_API_URL: z.url().optional(),
 });
 
 export const env = EnvSchema.parse(process.env);

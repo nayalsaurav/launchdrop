@@ -1,13 +1,23 @@
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import { CommandPalette } from "@/components/dashboard/command-palette";
-import { DashboardHeader } from "@/components/dashboard/header";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { getServerSession } from "@/lib/server-auth";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const session = await getServerSession();
+    if (!session?.user) {
+        redirect("/signin");
+    }
+
     return (
         <SidebarProvider>
             <AppSidebar />

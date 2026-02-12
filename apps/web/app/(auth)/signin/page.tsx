@@ -3,19 +3,27 @@ import Link from "next/link";
 import { Rocket, Zap, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-
+import { useRouter } from "next/navigation";
+import { useSession } from "@/hooks/use-session";
+import { toast } from "sonner";
 export default function SignInPage() {
+  const router = useRouter();
+  const { session } = useSession();
+  if (session?.user) {
+    router.replace("/dashboard");
+  }
 
-    const handleGithubSignIn = async () => {
-        try {
-            await authClient.signIn.social({
-                provider: "github",
-                callbackURL: "http://localhost:3000/" 
-            })
-        } catch (error) {
-            console.log(error)
-        }
+  const handleGithubSignIn = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "http://localhost:3000/dashboard"
+      })
+    } catch (error) {
+      toast.error("Failed to sign in with GitHub")
+      console.log(error)
     }
+  }
 
   return (
     <div className="flex min-h-screen w-full font-sans text-foreground antialiased overflow-auto">
@@ -23,7 +31,7 @@ export default function SignInPage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--background)_1px,transparent_1px),linear-gradient(to_bottom,var(--background)_1px,transparent_1px)] bg-[size:40px_40px] opacity-10"></div>
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 blur-[150px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/10 blur-[150px] rounded-full -translate-x-1/2 translate-y-1/2"></div>
-        
+
         <div className="relative z-10 p-16 max-w-2xl">
           <div className="mb-8">
             <span className="inline-flex items-center justify-center p-3 bg-primary/5 rounded-xl border border-primary/10 backdrop-blur-sm mb-8">
@@ -38,7 +46,7 @@ export default function SignInPage() {
               Join thousands of developers deploying static apps with zero config.
             </footer>
           </blockquote>
-          
+
           <div className="mt-16 flex items-center gap-4 text-sm font-medium text-muted-foreground">
             <div className="flex -space-x-3">
               <div className="w-10 h-10 rounded-full border-2 border-background bg-zinc-700"></div>
@@ -57,7 +65,7 @@ export default function SignInPage() {
             Back to Home
           </Link>
         </div>
-        
+
         <div className="flex-1 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-20 xl:px-24">
           <div className="w-full max-w-sm space-y-8">
             <div className="text-center">
@@ -69,14 +77,14 @@ export default function SignInPage() {
             </div>
 
             <div className="mt-8 space-y-6">
-              <Button 
-                variant="default"
+              <Button
+                variant="primary"
                 className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl text-md flex gap-3"
                 onClick={handleGithubSignIn}
               >
                 <Github className="w-5 h-5 fill-current" />
                 <span>
-                    Sign in with GitHub
+                  Sign in with GitHub
                 </span>
               </Button>
 

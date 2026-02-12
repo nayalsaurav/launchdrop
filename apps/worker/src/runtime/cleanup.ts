@@ -1,7 +1,7 @@
 import { rm } from "node:fs/promises";
 
 export async function cleanupWorkspace(
-  deploymentId: string,
+  _deploymentId: string,
   workspace: string
 ) {
   try {

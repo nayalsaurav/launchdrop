@@ -1,7 +1,8 @@
-
+import { env } from "@repo/config/env";
 import { createAuthClient } from "better-auth/react";
 export const authClient = createAuthClient({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3005",
+    baseURL: env.NEXT_PUBLIC_APP_URL! + "/api/auth",
+    credentials: "include",
     fetchOptions: {
         onError: async (context) => {
             const { response } = context;

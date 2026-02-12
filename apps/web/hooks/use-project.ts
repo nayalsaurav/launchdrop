@@ -1,14 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
 import { Project } from "./use-projects";
+import { env } from "@repo/config";
 
 export function useProject(id: string) {
-  const { data: session } = authClient.useSession();
   
   return useQuery({
     queryKey: ["project", id],
     queryFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
+      const res = await fetch(`${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
         credentials: "include",
       });
       
@@ -17,7 +16,7 @@ export function useProject(id: string) {
       }
       return res.json() as Promise<Project>;
     },
-    enabled: !!session && !!id,
+    enabled: !!id,
     refetchInterval: (query) => {
       const project = query.state.data;
       if (!project) return false;

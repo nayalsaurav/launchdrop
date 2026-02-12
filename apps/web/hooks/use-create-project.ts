@@ -1,6 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Project } from "./use-projects";
+import { getQueryClient } from "@/lib/query-client";
+import { env } from "@repo/config";
 
 interface CreateProjectInput {
   name: string;
@@ -8,11 +10,11 @@ interface CreateProjectInput {
 }
 
 export function useCreateProject() {
-  const queryClient = useQueryClient();
+  const queryClient = getQueryClient();
 
   return useMutation({
     mutationFn: async (data: CreateProjectInput) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project`, {
+      const res = await fetch(`${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

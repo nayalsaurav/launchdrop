@@ -44,8 +44,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = session?.user;
 
   const handleSignOut = async () => {
-        await authClient.signOut();
-        window.location.href = "/sign-in"; // Force redirect
+    await authClient.signOut();
+    window.location.href = "/"; // Force redirect
   };
 
   const navMain = [
@@ -56,10 +56,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       isActive: pathname === "/dashboard",
     },
     {
-        title: "Projects",
-        url: "/dashboard/projects",
-        icon: FolderOpen,
-        isActive: pathname?.startsWith("/dashboard/projects"),
+      title: "Projects",
+      url: "/dashboard/projects",
+      icon: FolderOpen,
+      isActive: pathname?.startsWith("/dashboard/projects"),
     },
     {
       title: "Settings",
@@ -90,23 +90,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
-            <SidebarMenu>
+          <SidebarGroupLabel>Platform</SidebarGroupLabel>
+          <SidebarMenu>
             {navMain.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild isActive={item.isActive} tooltip={item.title}>
-                    <Link href={item.url}>
+                  <Link href={item.url}>
                     <item.icon />
                     <span>{item.title}</span>
-                    </Link>
+                  </Link>
                 </SidebarMenuButton>
-                </SidebarMenuItem>
+              </SidebarMenuItem>
             ))}
-            </SidebarMenu>
+          </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-         <SidebarMenu>
+        <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -145,10 +145,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <div className="flex w-full items-center justify-between px-2 py-1.5 text-sm">
-                        <span>Theme</span>
-                        <ThemeSwitcher />
-                    </div>
+                  <div className="flex w-full items-center justify-between px-2 py-1.5 text-sm">
+                    <span>Theme</span>
+                    <ThemeSwitcher />
+                  </div>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut}>

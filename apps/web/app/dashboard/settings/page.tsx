@@ -34,7 +34,7 @@ export default function SettingsPage() {
 
   const handleSignOut = async () => {
     await authClient.signOut();
-    window.location.href = "/sign-in";
+    window.location.href = "/";
   };
 
   if (isPending) {
@@ -110,7 +110,7 @@ export default function SettingsPage() {
               <div className="space-y-0.5">
                 <p className="text-sm font-medium">Sign Out</p>
                 <p className="text-xs text-muted-foreground">
-                  End your current session and return to the sign-in page.
+                  End your current session and return to the  page.
                 </p>
               </div>
               <Button variant="outline" onClick={handleSignOut} className="w-full sm:w-auto">

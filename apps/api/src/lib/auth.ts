@@ -19,7 +19,7 @@ export const auth = betterAuth({
         },
     },
     baseURL: env.BETTER_AUTH_URL || "http://localhost:3005",
-    trustedOrigins: ["http://localhost:3000"],
+    trustedOrigins: ["http://localhost:3000",env.FRONTEND_URL!],
     rateLimit:{
         enabled: true,
         storage:"secondary-storage",

@@ -9,12 +9,13 @@ import { auth } from "./lib/auth";
 import cors from "cors";
 import morgan from "morgan";
 import { globalLimiter } from "./middlewares/ratelimit.middleware";
+import { env } from "@repo/config";
 
 const PORT = process.env.PORT || 3005;
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000",env.FRONTEND_URL!],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

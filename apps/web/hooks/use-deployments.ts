@@ -1,15 +1,16 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Deployment } from "./use-projects";
+import { toast } from "sonner";
+import { getQueryClient } from "@/lib/query-client";
+import { env } from "@repo/config";
 
 export function useDeployments(projectId: string) {
-  const { data: session } = authClient.useSession();
 
   return useQuery({
     queryKey: ["deployments", projectId],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy?projectId=${projectId}`,
+        `${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy?projectId=${projectId}`,
         {
           credentials: "include",
         }
@@ -20,7 +21,7 @@ export function useDeployments(projectId: string) {
       }
       return res.json() as Promise<Deployment[]>;
     },
-    enabled: !!session && !!projectId,
+    enabled: !!projectId,
     refetchInterval: (query) => {
       const deployments = query.state.data;
       if (!deployments) return false;
@@ -35,12 +36,12 @@ export function useDeployments(projectId: string) {
 }
 
 export function useCreateDeployment() {
-  const queryClient = useQueryClient();
+  const queryClient = getQueryClient();
 
   return useMutation({
     mutationFn: async ({ projectId }: { projectId: string }) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy`,
+        `${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy`,
         {
           method: "POST",
           headers: {
@@ -63,5 +64,8 @@ export function useCreateDeployment() {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
     },
+    onError: (error) => {
+      toast.error(error.message);
+    }
   });
 }
