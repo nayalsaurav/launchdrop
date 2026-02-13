@@ -1,4 +1,4 @@
-import { buildQueue } from "@repo/queue";
+import { buildQueue } from "../lib/queue";
 import type { DeployInputType } from "@repo/types";
 
 export async function addToBuildQueue({

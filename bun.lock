@@ -12,7 +12,6 @@
     "apps/api": {
       "name": "api",
       "dependencies": {
-        "@repo/config": "*",
         "@repo/database": "*",
         "@repo/queue": "*",
         "@repo/storage": "*",
@@ -50,7 +49,6 @@
     "apps/proxy-bun": {
       "name": "proxy",
       "devDependencies": {
-        "@repo/config": "*",
         "@repo/database": "*",
         "@repo/queue": "*",
         "@repo/storage": "*",
@@ -115,7 +113,6 @@
     "apps/worker": {
       "name": "worker",
       "dependencies": {
-        "@repo/config": "*",
         "@repo/database": "*",
         "@repo/queue": "*",
         "@repo/storage": "*",
@@ -147,7 +144,6 @@
       "dependencies": {
         "@prisma/adapter-pg": "^7.3.0",
         "@prisma/client": "^7.3.0",
-        "@repo/config": "*",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -178,7 +174,6 @@
     "packages/queue": {
       "name": "@repo/queue",
       "dependencies": {
-        "@repo/config": "*",
         "bullmq": "^5.67.3",
       },
       "devDependencies": {

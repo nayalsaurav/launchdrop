@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Deployment } from "./use-projects";
 import { toast } from "sonner";
 import { getQueryClient } from "@/lib/query-client";
-import { env } from "@repo/config";
+
 
 export function useDeployments(projectId: string) {
 
@@ -10,7 +10,7 @@ export function useDeployments(projectId: string) {
     queryKey: ["deployments", projectId],
     queryFn: async () => {
       const res = await fetch(
-        `${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy?projectId=${projectId}`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy?projectId=${projectId}`,
         {
           credentials: "include",
         }
@@ -41,7 +41,7 @@ export function useCreateDeployment() {
   return useMutation({
     mutationFn: async ({ projectId }: { projectId: string }) => {
       const res = await fetch(
-        `${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy`,
         {
           method: "POST",
           headers: {

@@ -1,9 +1,9 @@
 import { rateLimit } from "express-rate-limit";
 import { RedisStore, type RedisReply } from "rate-limit-redis";
-import { connection } from "@repo/queue";
+import { connection } from "../lib/queue";
 
 export const createRateLimiter = (
-  windowMs: number = 15 * 60 * 1000,
+  windowMs: number = 1 * 60 * 1000,
   limit: number = 100,
   message: string = "Too many requests from this IP, please try again later."
 ) => {
@@ -21,10 +21,10 @@ export const createRateLimiter = (
   });
 };
 
-export const globalLimiter = createRateLimiter(15 * 60 * 1000, 500);
+export const globalLimiter = createRateLimiter(1 * 60 * 1000, 100);
 
 export const strictLimiter = createRateLimiter(
-  10 * 60 * 1000, 
+  60 * 1000, 
   10, 
   "Resource creation limit exceeded. Please wait before creating more."
 );

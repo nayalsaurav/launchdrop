@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { env } from "@repo/config";
+
 
 export interface Deployment {
   id: string;
@@ -25,7 +25,7 @@ export function useProjects() {
   return useQuery({
     queryKey: ["projects"],
     queryFn: async () => {
-      const res = await fetch(`${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project`, {
         credentials: "include",
       });
       

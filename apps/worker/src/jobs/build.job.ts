@@ -2,7 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Job } from "bullmq";
 import type { DeployInputType } from "@repo/types";
-import { prisma } from "@repo/database";
+import { prisma } from "../lib/db";
 import { cloneRepo } from "../services/git.service";
 import { createWorkspace, copyFile } from "../services/workspace.service";
 import { checkTheRepoType } from "../services/detection.service";

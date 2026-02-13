@@ -1,4 +1,4 @@
-import { env } from "@repo/config";
+
 
 const STRIP_HEADERS = [
   "server",
@@ -13,7 +13,7 @@ const STRIP_HEADERS = [
   "content-length",
 ];
 
-const PUBLIC_R2_URL = env.R2_PUBLIC_URL;
+const PUBLIC_R2_URL = process.env.R2_PUBLIC_URL!;
 
 Bun.serve({
   port: 3001,

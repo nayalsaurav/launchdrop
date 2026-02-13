@@ -1,15 +1,17 @@
 import { Queue } from "bullmq";
-import { connection } from "./client";
+import type { Redis } from "ioredis";
 
-export const buildQueue = new Queue("builds", {
-  connection,
-  defaultJobOptions: {
-    attempts: 1,
-    backoff: {
-      type: "exponential",
-      delay: 30_000,
+export const createBuildQueue = (connection: Redis) => {
+  return new Queue("builds", {
+    connection,
+    defaultJobOptions: {
+      attempts: 1,
+      backoff: {
+        type: "exponential",
+        delay: 30_000,
+      },
+      removeOnComplete: true,
+      removeOnFail: false,
     },
-    removeOnComplete: true,
-    removeOnFail: false,
-  },
-});
+  });
+};

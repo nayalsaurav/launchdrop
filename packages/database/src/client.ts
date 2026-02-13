@@ -1,20 +1,15 @@
+
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "./generated/prisma/client";
-import { env } from "@repo/config";
 
-const globalForPrisma = globalThis as unknown as {
-  prisma?: PrismaClient;
-};
-const adapter = new PrismaPg({
-  connectionString: env.DATABASE_URL,
-});
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: ["error", "warn"],
-    adapter,
+export const createClient = (url: string) => {
+  const connectionString = url;
+  const adapter = new PrismaPg({
+    connectionString,
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
-}
+  return new PrismaClient({
+    log: ["error"],
+    adapter,
+  });
+};

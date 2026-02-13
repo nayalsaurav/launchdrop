@@ -1,6 +1,6 @@
 import path from "node:path";
 import { readdir } from "node:fs/promises";
-import { upload } from "@repo/storage";
+import { upload } from "../lib/storage";
 import { WorkerError } from "../errors";
 
 export async function uploadToR2(domain: string, workspace: string) {

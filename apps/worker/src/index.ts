@@ -1,5 +1,5 @@
 import { Worker } from "bullmq";
-import { connection } from "@repo/queue";
+import { connection } from "./lib/queue";
 import type { DeployInputType } from "@repo/types";
 import { buildJob } from "./jobs/build.job";
 

@@ -1,4 +1,4 @@
-import { prisma } from "@repo/database";
+import { prisma } from "../lib/db";
 import type { Request, Response, NextFunction } from "express";
 
 import { DeployInput } from "@repo/types";

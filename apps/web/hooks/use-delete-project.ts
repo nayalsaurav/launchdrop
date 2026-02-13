@@ -2,12 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getQueryClient } from "@/lib/query-client";
 
+
 export function useDeleteProject() {
   const queryClient = getQueryClient();
 
   return useMutation({
     mutationFn: async (id: string) => {
-      const res = await fetch(`${env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

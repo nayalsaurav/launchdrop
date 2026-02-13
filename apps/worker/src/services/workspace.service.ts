@@ -1,13 +1,13 @@
 import os from "node:os";
 import path from "node:path";
 import fs from "node:fs/promises";
-import { env } from "@repo/config";
+
 import { WorkerError } from "../errors";
 
 export async function createWorkspace(deploymentId: string) {
   try {
     const baseDir =
-      env.NODE_ENV === "production"
+      process.env.NODE_ENV === "production"
         ? path.join(os.tmpdir(), "launchdrop", "builds")
         : path.resolve(".launchdrop", "builds");
 

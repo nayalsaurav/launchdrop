@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { env } from "@repo/config";
 
-const backendUrl = env.NEXT_PUBLIC_API_URL || "http://localhost:3005";
+
+const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005";
 
 export async function getServerSession() {
   const cookieStore = cookies();

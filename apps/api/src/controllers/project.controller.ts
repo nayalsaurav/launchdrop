@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { prisma } from "@repo/database";
+import { prisma } from "../lib/db";
 import { CreateProjectSchema } from "@repo/types";
 import { generateDomain } from "@repo/utils";
 

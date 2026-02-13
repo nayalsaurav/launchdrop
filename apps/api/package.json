@@ -16,7 +16,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@repo/config": "*",
     "@repo/database": "*",
     "@repo/queue": "*",
     "@repo/storage": "*",
