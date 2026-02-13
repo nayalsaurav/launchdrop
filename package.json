@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "bun --env-file=.env turbo dev",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
