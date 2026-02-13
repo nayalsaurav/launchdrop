@@ -17,7 +17,6 @@
   "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
-    "@prisma/client": "^7.3.0",
-    "@repo/config": "*"
+    "@prisma/client": "^7.3.0"
   }
 }
