@@ -3,8 +3,15 @@ import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth-guard";
 import { DeployInput } from "@repo/types";
 import { addToBuildQueue } from "@/lib/queue";
+import { rateLimit, globalRateLimit, strictRateLimit } from "@/lib/ratelimit";
 
 export async function GET(req: NextRequest) {
+    const { success } = await globalRateLimit(req);
+
+    if (!success) {
+        return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const session = await getSession();
 
     if (!session) {
@@ -47,11 +54,26 @@ export async function GET(req: NextRequest) {
     }
 }
 
+
+
 export async function POST(req: NextRequest) {
     const session = await getSession();
 
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Global Limit
+    const globalLimit = await globalRateLimit(req);
+    if (!globalLimit.success) {
+        return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
+    // Strict Limit for Creation
+    const { success } = await strictRateLimit(req);
+
+    if (!success) {
+        return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
     try {

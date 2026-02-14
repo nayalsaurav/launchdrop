@@ -11,6 +11,7 @@ import morgan from "morgan";
 import { globalLimiter } from "./middlewares/ratelimit.middleware";
 const PORT = process.env.PORT || 3005;
 const app = express();
+app.set("trust proxy", 1);
 app.use(
   cors({
     origin: ["http://localhost:3000",process.env.FRONTEND_URL!],
