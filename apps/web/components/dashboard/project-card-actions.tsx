@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Trash2, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { Project } from "@/hooks/use-projects";
+import { Project } from "@/lib/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -38,15 +38,15 @@ export function ProjectCardActions({ project }: { project: Project }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-              <Link href={`/dashboard/projects/${project.id}`}>
-                  View Details
-              </Link>
+            <Link href={`/dashboard/projects/${project.id}`}>
+              View Details
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-               <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  View Repository
-               </a>
+            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              View Repository
+            </a>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <AlertDialogTrigger asChild>

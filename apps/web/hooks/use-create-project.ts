@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Project } from "./use-projects";
+import { Project } from "@/lib/types";
 import { getQueryClient } from "@/lib/query-client";
 
 
@@ -14,12 +14,11 @@ export function useCreateProject() {
 
   return useMutation({
     mutationFn: async (data: CreateProjectInput) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project`, {
+      const res = await fetch("/api/project", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(data),
       });
 

@@ -8,9 +8,8 @@ export function useDeleteProject() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
+      const res = await fetch(`/api/project/${id}`, {
         method: "DELETE",
-        credentials: "include",
       });
 
       if (!res.ok) {

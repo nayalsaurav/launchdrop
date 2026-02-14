@@ -58,10 +58,10 @@ export function DeploymentsList({ projectId }: { projectId: string }) {
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button 
-                onClick={() => createDeployment({ projectId })} 
-                disabled={isDeploying}
-                size="lg"
+            <Button
+              onClick={() => createDeployment({ projectId })}
+              disabled={isDeploying}
+              size="lg"
             >
               {isDeploying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {isDeploying ? "Deploying..." : "Deploy Now"}
@@ -95,8 +95,8 @@ export function DeploymentsList({ projectId }: { projectId: string }) {
                       deployment.status === "SUCCESS"
                         ? "default"
                         : deployment.status === "FAILED"
-                        ? "destructive"
-                        : "secondary"
+                          ? "destructive"
+                          : "secondary"
                     }
                   >
                     {deployment.status}

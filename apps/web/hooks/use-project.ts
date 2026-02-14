@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Project } from "./use-projects";
+import { Project } from "@/lib/types";
+import { shouldRefetchProject } from "@/lib/hook-utils";
 
 
 export function useProject(id: string) {
@@ -7,9 +8,7 @@ export function useProject(id: string) {
   return useQuery({
     queryKey: ["project", id],
     queryFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/project/${id}`, {
-        credentials: "include",
-      });
+      const res = await fetch(`/api/project/${id}`);
       
       if (!res.ok) {
         throw new Error("Failed to fetch project");
@@ -17,15 +16,6 @@ export function useProject(id: string) {
       return res.json() as Promise<Project>;
     },
     enabled: !!id,
-    refetchInterval: (query) => {
-      const project = query.state.data;
-      if (!project) return false;
-      
-      const hasActiveDeployment = project.deployments?.some(
-        (d) => !["SUCCESS", "FAILED"].includes(d.status)
-      );
-      
-      return hasActiveDeployment ? 3000 : false;
-    },
+    refetchInterval: (query) => shouldRefetchProject(query.state.data),
   });
 }

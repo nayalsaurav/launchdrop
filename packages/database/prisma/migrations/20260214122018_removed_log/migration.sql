@@ -1,0 +1,11 @@
+/*
+  Warnings:
+
+  - You are about to drop the `log` table. If the table is not empty, all the data it contains will be lost.
+
+*/
+-- DropForeignKey
+ALTER TABLE "log" DROP CONSTRAINT "log_deploymentId_fkey";
+
+-- DropTable
+DROP TABLE "log";

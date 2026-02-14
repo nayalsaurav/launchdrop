@@ -15,7 +15,7 @@ export const worker = new Worker<{
   }
 );
 
-console.log("🚀 Build worker started");
+console.log("Build worker started");
 
 process.on("SIGTERM", async () => {
   console.log("Worker shutting down...");

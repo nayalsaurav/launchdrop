@@ -1,7 +1,8 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Deployment } from "./use-projects";
+import { Deployment } from "@/lib/types";
 import { toast } from "sonner";
 import { getQueryClient } from "@/lib/query-client";
+import { shouldRefetchDeployments } from "@/lib/hook-utils";
 
 
 export function useDeployments(projectId: string) {
@@ -9,12 +10,7 @@ export function useDeployments(projectId: string) {
   return useQuery({
     queryKey: ["deployments", projectId],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy?projectId=${projectId}`,
-        {
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/deploy?projectId=${projectId}`);
 
       if (!res.ok) {
         throw new Error("Failed to fetch deployments");
@@ -22,16 +18,7 @@ export function useDeployments(projectId: string) {
       return res.json() as Promise<Deployment[]>;
     },
     enabled: !!projectId,
-    refetchInterval: (query) => {
-      const deployments = query.state.data;
-      if (!deployments) return false;
-
-      const hasActiveDeployment = deployments.some(
-        (d) => !["SUCCESS", "FAILED"].includes(d.status)
-      );
-
-      return hasActiveDeployment ? 3000 : false;
-    },
+    refetchInterval: (query) => shouldRefetchDeployments(query.state.data),
   });
 }
 
@@ -40,15 +27,12 @@ export function useCreateDeployment() {
 
   return useMutation({
     mutationFn: async ({ projectId }: { projectId: string }) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3005"}/api/deploy`,
-        {
+      const res = await fetch("/api/deploy", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ projectId }),
-          credentials: "include",
         }
       );
 

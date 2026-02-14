@@ -5,18 +5,14 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getServerSession } from "@/lib/server-auth";
-import { redirect } from "next/navigation";
+import { requireAuth } from "@/lib/auth-guard";
 
 export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getServerSession();
-    if (!session?.user) {
-        redirect("/signin");
-    }
+    await requireAuth();
 
     return (
         <SidebarProvider>
